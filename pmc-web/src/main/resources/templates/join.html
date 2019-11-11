@@ -1,0 +1,143 @@
+﻿ <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+<title>天能物业管理</title>
+<link rel="stylesheet" href="/css/index.css" type="text/css">
+<link rel="stylesheet" href="/css/zym.css" type="text/css">
+<style>
+	.gsjj_nr p{
+		line-height: 18px;
+	}
+</style>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/hm.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+
+
+
+</head>
+<body>
+<!--头部-->
+<!--引入topbar-->
+<div th:replace="commons/top::topbar"></div>
+<!--子页-->
+<div class="ziye_bj">
+	<div class="ziye_tu">
+		<img src="/picture/banner_c.jpg" width="95%">
+	</div>
+</div>
+<!--人才招聘-->
+<div class="zy_gywm">
+	<div class="ejdh">
+		<div class="shang_g"></div>
+		<div class="women">
+			<div class="btmc">
+				<h1>J</h1>
+				<p>人才招聘<span>OIN</span></p>
+			</div>
+			<ul class="skb">
+				<li style="background: #005bac; width: 25%;"></li>
+				<li style="background: #ff8400; width: 20%;"></li>
+				<li style="background: #d3d3d3; width: 55%;"></li>
+			</ul>
+		</div>
+		<div class="zy_dh_lb">
+			<ul>
+				<li id="women"><img src="/picture/zy1_08.png"><a id="wenzidangq" href="#">职位</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="zynr_db" style="height:100%;">
+		<div class="lujing">
+			<h2>职位</h2>
+			<p>您的位置：人才招聘 > 职位</p>
+		</div>
+		<ul class="skb" style="margin-bottom: 20px;">
+			<li style="background: #005bac; width: 12%;"></li>
+			<li style="background: #ff8400; width: 15%;"></li>
+			<li style="background: #d3d3d3; width: 73%;"></li>
+		</ul>
+
+		<!--内容-->
+		<div class="gsjj_nr" id="empjobClaim">
+			<ul></ul>
+			<div class="webdiyerCss" id="pageItems">
+				<ul></ul>
+			</div>
+	 	</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		initData(1);
+	});
+	json = {
+		pageNum:1,
+		pageSize:2
+	}
+	function initData(pageNum){
+		json.pageNum=pageNum;
+		$.ajax({
+			type:'post',
+			url:'joinselectAll',
+			data:json,
+			success:function (data) {
+				initshow(data);
+				initNavg(data);
+			}
+		});
+	}
+//=======================显示数据==================================================================
+	function initshow(data){
+		var list = data.list;
+		$('#empjobClaim ul').empty();
+		$.each(list,function(i,e){
+			var li = $('<li style="margin-bottom: 20px;"></li>');
+			li.append('<div><p style="color: blue;"><b>'+e.name+'</b></p></div>');
+			li.append('<div><p><b>岗位职责：</b></p>'+e.jobMap.content+'</div>');
+			li.append('<div><p><b>任职要求：</b></p>'+e.claimMap.content+'</div>');
+			li.appendTo($('#empjobClaim ul'));
+		});
+	}
+//=======================显示分页==================================================================
+	function initNavg(data){
+		$("#pageItems").empty();
+		var navigatepageNums = data.navigatepageNums;
+		$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;">共'+data.total+'条</a></li>'));
+		if(data.pageNum == 1){
+			$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;">首页</a></li>'));
+		}else{
+			$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;" onclick="initData('+1+')">首页</a></li>'));
+		}
+		if(data.isFirstPage){
+			$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;">上一页</a></li>'));
+		}else{
+			$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;cursor:pointer;" onclick="initData('+(data.pageNum-1)+')">上一页</a></li>'));
+		}
+		$.each(navigatepageNums,function(i,num){
+			if(num==data.pageNum){
+				$('#pageItems').append($('<li style="float: left;"><a style="background-color: deepskyblue;pointer-events:none;">'+num+'</a></li>'));
+			}else{
+				$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;" onclick="initData('+num+')">'+num+'</a></li>'));
+			}
+		});
+		if(data.isLastPage){
+			$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;" >下一页</a></li>'));
+		}else{
+			$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;" onclick="initData('+(data.pageNum+1)+')">下一页</a></li>'));
+		}
+		if(data.pageNum==data.pages){
+			$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;" >尾页</a></li>'));
+		}else{
+			$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;" onclick="initData('+(data.pages)+')">尾页</a></li>'));
+		}
+		$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;">共'+data.pages+'页</a></li>'));
+	}
+</script>
+<!--底部-->
+<div th:replace="commons/top::bottom"></div>
+</body>
+</html>

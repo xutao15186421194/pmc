@@ -1,0 +1,95 @@
+﻿ <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+<title>天能物业管理</title>
+<link rel="stylesheet" href="/css/index.css" type="text/css">
+<link rel="stylesheet" href="/css/zym.css" type="text/css">
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/hm.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/jquery/layer/layer.js"></script>
+
+
+</head>
+<body>
+<!--头部-->
+<div th:replace="commons/top::topbar"></div>
+<!--子页-->
+<div class="ziye_bj">
+	<div class="ziye_tu">
+		<img src="/picture/gywm_02.jpg" width="100%">
+	</div>
+</div>
+<!--关于我们-->
+<div class="zy_gywm">
+	<div class="ejdh">
+		<div class="shang_g"></div>
+		<div class="women">
+			<div class="btmc">
+				<h1>A</h1>
+				<p>关于我们<span>bout us</span></p>
+			</div>
+			<ul class="skb">
+				<li style="background: #005bac; width: 25%;"></li>
+				<li style="background: #ff8400; width: 20%;"></li>
+				<li style="background: #d3d3d3; width: 55%;"></li>
+			</ul>
+		</div>
+		<div class="zy_dh_lb">
+			<ul>
+				<li id="women"><img src="/picture/zy1_08.png"><a id="wenzidangq" href="about.html">公司简介</a></li>
+				<li><img src="/picture/zy1_08_z.png"><a href="culture.html">公司文化</a></li>
+				<li><img src="/picture/zy1_08_z.png"><a href="speech.html">领导致词</a></li>
+				<li><img src="/picture/zy1_08_z.png"><a href="course.html">发展历程</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="zynr_db" style="height:100%;">
+		<div class="lujing">
+			<h2>公司简介</h2>
+			<p>您的位置：首页 > 公司简介</p>
+		</div>
+		<ul class="skb" style="margin-bottom: 20px;">
+			<li style="background: #005bac; width: 12%;"></li>
+			<li style="background: #ff8400; width: 15%;"></li>
+			<li style="background: #d3d3d3; width: 73%;"></li>
+		</ul>
+
+		<!--内容-->
+		<div class="gsjj_nr" id="company">
+			<p>&nbsp;&nbsp;贵州天能物业管理有限公司（原贵阳天能物业管理中心，于2014年8月25日正式更名）始建于1998年，注册资金300万，属于二级物业管理注册资质的集体企业，是目前贵阳市物业管理行业实力较强的物业公司之一。</p><br>
+			<p>&nbsp;&nbsp;公司始终视服务质量为生命，以人性化的管理和高起点、高标准、高素质的要求完善企业管理，服务业主，服务企业，服务员工，为业主创造高品质的工作、生活和娱乐环境。公司目前管理的物业项目有贵州电力科研综合楼、青云小区、贵州电力调度试研楼、贵州电力物资大厦、贵州电力职工医院、贵州电力设计院、黔能大厦、新华巷社区、市政地下通道等多幢高端写字楼、住宅小区及市政项目。</p><br>
+			<p>&nbsp;&nbsp;成立到今，公司始终坚持以科学管理、优质服务、文明环境、顾客满意、持续发展做为企业发展壮大的质量方针，在工作中大力弘扬开拓、求实、创新的企业精神，全面贯彻落实宾客至上，服务第一的宗旨，努力塑造“天能物业”的品牌。</p>
+			<p>&nbsp;&nbsp;贵州天能物业管理有限公司（原贵阳天能物业管理中心，于2014年8月25日正式更名）始建于1998年，注册资金300万，属于二级物业管理注册资质的集体企业，是目前贵阳市物业管理行业实力较强的物业公司之一。</p><br>
+			<p>&nbsp;&nbsp;公司始终视服务质量为生命，以人性化的管理和高起点、高标准、高素质的要求完善企业管理，服务业主，服务企业，服务员工，为业主创造高品质的工作、生活和娱乐环境。公司目前管理的物业项目有贵州电力科研综合楼、青云小区、贵州电力调度试研楼、贵州电力物资大厦、贵州电力职工医院、贵州电力设计院、黔能大厦、新华巷社区、市政地下通道等多幢高端写字楼、住宅小区及市政项目。</p><br>
+			<p>&nbsp;&nbsp;成立到今，公司始终坚持以科学管理、优质服务、文明环境、顾客满意、持续发展做为企业发展壮大的质量方针，在工作中大力弘扬开拓、求实、创新的企业精神，全面贯彻落实宾客至上，服务第一的宗旨，努力塑造“天能物业”的品牌。</p>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		index = -1;
+		$.ajax({
+			type:'post',
+			url:'companyAll',
+			beforeSend:function(){
+				index = layer.load(1,{time:5*1000});
+				return true;
+			},
+			success:function(data){
+				layer.close(index);
+				$('#company').empty();
+				$('#company').append(data.content);
+			}
+		});
+	});
+</script>
+
+<!--底部-->
+<div th:replace="commons/top::bottom"></div>
+</body>
+</html>

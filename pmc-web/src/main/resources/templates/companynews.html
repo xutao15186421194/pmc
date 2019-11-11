@@ -1,0 +1,163 @@
+﻿ <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+<title>天能物业管理</title>
+<link rel="stylesheet" href="/css/index.css" type="text/css">
+<link rel="stylesheet" href="/css/zym.css" type="text/css">
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/hm.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/jquery/layer/layer.js"></script>
+
+
+</head>
+<body>
+<!--头部-->
+<div th:replace="commons/top::topbar"></div>
+<!--子页-->
+<div class="ziye_bj">
+	<div class="ziye_tu">
+		<img src="/picture/zy1_02.jpg">
+	</div>
+</div>
+<!--关于我们-->
+<div class="zy_gywm">
+	<div class="ejdh" style="height: 1050px;">
+		<div class="shang_g"></div>
+		<div class="women">
+			<div class="btmc">
+				<h1>N</h1>
+				<p>公司动态<span>ews</span></p>
+			</div>
+			<ul class="skb">
+				<li style="background: #005bac; width: 25%;"></li>
+				<li style="background: #ff8400; width: 20%;"></li>
+				<li style="background: #d3d3d3; width: 55%;"></li>
+			</ul>
+		</div>
+		<div class="zy_dh_lb">
+			<ul>
+				<li id="women"><img src="/picture/zy1_08.png"><a id="wenzidangq" href="companynews.html">公司新闻</a></li>
+				<li><img src="/picture/zy1_08_z.png"><a href="industrynews.html">行业新闻</a></li>
+				<li><img src="/picture/zy1_08_z.png"><a href="chroniclenews.html">公司大事记</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="touyin"></div>
+	<div class="zynr_db" style="height: 1000px;">
+		<div class="lujing">
+			<h2>公司新闻</h2>
+			<p>您的位置：首页 > 公司新闻</p>
+		</div>
+		<ul class="skb" style="margin-bottom: 20px;">
+			<li style="background: #005bac; width: 12%;"></li>
+			<li style="background: #ff8400; width: 15%;"></li>
+			<li style="background: #d3d3d3; width: 73%;"></li>
+		</ul>
+
+		<!--内容-->
+		<div class="gsjj_nr" id="companynewsId">
+			<ul class="xwlb_bj">
+			</ul>
+			<div class="webdiyerCss" id="pageItems">
+				<ul class="pagination"></ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		initData(1);
+	});
+	json={
+		pageNum:1,
+		pageSize:4,
+		type:1
+	}
+	function initData(pageNum){
+		json.pageNum=pageNum;
+		index = -1;
+		$.ajax({
+			type:'post',
+			url:'newsAll',
+			data:json,
+			beforeSend:function(){
+				index = layer.load(1,{time:5*1000});
+				return true;
+			},
+			success:function(data){
+				layer.close(index);
+				initshow(data);
+				initNavg(data);
+			}
+		});
+	}
+	function initshow(data){
+		var list = data.list;
+		$('#companynewsId ul').empty();
+		$.each(list,function(i,e){
+			var glance = e.glance !=null ? e.glance : 0;
+			($('#companynewsId ul')).append($('<li><dl style="float: left;">' +
+				'<dt><a href="companynewslist.html?id='+e.id+'">'+e.title+'</a></dt>' +
+				'<dd>'+e.content.substring(0,50)+'...</dd>' +
+				'<span>类型：公司新闻</span>' +
+				'<span>日期：'+timestampToTime(e.createdate)+' </span>' +
+				'<span>阅读（'+glance+'）</span>' +
+				'</dl></li>'));
+		});
+	}
+
+//================================时间转换============================================
+	function timestampToTime(timestamp) {
+		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		Y = date.getFullYear() + '-';
+		M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		D = date.getDate() + ' ';
+		h = date.getHours() + ':';
+		m = date.getMinutes() + ':';
+		s = date.getSeconds();
+		return Y+M+D;
+	}
+	function initNavg(data){
+		$("#pageItems").empty();
+		var navigatepageNums = data.navigatepageNums;
+		$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;">共'+data.total+'条</a></li>'));
+		if(data.pageNum == 1){
+			$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;">首页</a></li>'));
+		}else{
+			$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;" onclick="initData('+1+')">首页</a></li>'));
+		}
+		if(data.isFirstPage){
+			$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;">上一页</a></li>'));
+		}else{
+			$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;cursor:pointer;" onclick="initData('+(data.pageNum-1)+')">上一页</a></li>'));
+		}
+		$.each(navigatepageNums,function(i,num){
+			if(num==data.pageNum){
+				$('#pageItems').append($('<li style="float: left;"><a style="background-color: deepskyblue;pointer-events:none;">'+num+'</a></li>'));
+			}else{
+				$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;" onclick="initData('+num+')">'+num+'</a></li>'));
+			}
+		});
+		if(data.isLastPage){
+			$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;" >下一页</a></li>'));
+		}else{
+			$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;" onclick="initData('+(data.pageNum+1)+')">下一页</a></li>'));
+		}
+		if(data.pageNum==data.pages){
+			$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;" >尾页</a></li>'));
+		}else{
+			$('#pageItems').append($('<li style="float: left;"><a style="cursor:pointer;" onclick="initData('+(data.pages)+')">尾页</a></li>'));
+		}
+		$('#pageItems').append($('<li style="float: left;"><a style="pointer-events:none;">共'+data.pages+'页</a></li>'));
+	}
+</script>
+
+<!--底部-->
+<div th:replace="commons/top::bottom"></div>
+</body>
+</html>

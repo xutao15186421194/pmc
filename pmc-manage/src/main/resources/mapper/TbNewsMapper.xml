@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xutao.pmc.mapper.TbNewsMapper" >
+    <select id="listCompanynewsAll" resultType="com.pmc.bean.TbNews">
+        SELECT * FROM tb_news WHERE type=#{typeId} and id IN(
+        (SELECT id FROM tb_news WHERE type=#{typeId} and id &lt; #{id} ORDER BY id DESC LIMIT 1),
+        #{id},
+        (SELECT id FROM tb_news WHERE type=#{typeId} and id &gt; #{id} ORDER BY id LIMIT 1)) ORDER BY id
+    </select>
+
+    <update id="updateNewsGlance">
+        update tb_news set glance= glance+1 where id = #{id};
+    </update>
+
+</mapper>

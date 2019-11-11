@@ -1,0 +1,89 @@
+﻿ <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+<title>天能物业管理</title>
+<link rel="stylesheet" href="/css/index.css" type="text/css">
+<link rel="stylesheet" href="/css/zym.css" type="text/css">
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/hm.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/jquery/layer/layer.js"></script>
+
+
+</head>
+<body>
+<!--头部-->
+<div th:replace="commons/top::topbar"></div>
+<!--子页-->
+<div class="ziye_bj">
+	<div class="ziye_tu">
+		<img src="/picture/gywm_02.jpg" width="100%">
+	</div>
+</div>
+<!--关于我们-->
+<div class="zy_gywm">
+	<div class="ejdh">
+		<div class="shang_g"></div>
+		<div class="women">
+			<div class="btmc">
+				<h1>A</h1>
+				<p>关于我们<span>bout us</span></p>
+			</div>
+			<ul class="skb">
+				<li style="background: #005bac; width: 25%;"></li>
+				<li style="background: #ff8400; width: 20%;"></li>
+				<li style="background: #d3d3d3; width: 55%;"></li>
+			</ul>
+		</div>
+		<div class="zy_dh_lb">
+			<ul>
+				<li ><img src="/picture/zy1_08_z.png"><a href="about.html">公司简介</a></li>
+				<li id="women"><img src="/picture/zy1_08.png"><a id="wenzidangq" href="culture.html">公司文化</a></li>
+				<li><img src="/picture/zy1_08_z.png"><a href="speech.html">领导致词</a></li>
+				<li><img src="/picture/zy1_08_z.png"><a href="course.html">发展历程</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="zynr_db" style="height:100%;">
+		<div class="lujing">
+			<h2>公司文化</h2>
+			<p>您的位置：首页 > 公司文化</p>
+		</div>
+		<ul class="skb" style="margin-bottom: 20px;">
+			<li style="background: #005bac; width: 12%;"></li>
+			<li style="background: #ff8400; width: 15%;"></li>
+			<li style="background: #d3d3d3; width: 73%;"></li>
+		</ul>
+
+		<!--内容-->
+		<div class="gsjj_nr" id="culture">
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		index = -1;
+		$.ajax({
+			type:'post',
+			url:'getculture',
+			beforeSend:function(){
+				index = layer.load(1,{time:5*1000});
+				return true;
+			},
+			success:function(data){
+				layer.close(index);
+				$('#culture').empty();
+				$('#culture').append('<h2>公司文化</h2>'+data.content);
+			}
+		});
+	});
+</script>
+
+<!--底部-->
+<div th:replace="commons/top::bottom"></div>
+</body>
+</html>

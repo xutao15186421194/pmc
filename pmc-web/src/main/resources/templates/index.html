@@ -1,0 +1,427 @@
+﻿<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+<title>天能物业管理</title>
+<link rel="stylesheet" href="/css/index.css" type="text/css">
+
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/hm.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/jquery/layer/layer.js"></script>
+
+
+</head>
+<body>
+<!--头部-->
+<!--引入topbar-->
+<div th:replace="commons/top::topbar"></div>
+<!--大图-->
+<div th:replace="commons/top::MaxImg"></div>
+
+<!--内容部分-->
+<div class="nr_bufen_1">
+	<div class="nr_bufen_1_jz">
+		<div class="biaoti">
+			<p>项目展示<span>Project presentation</span></p>
+		</div>
+		<div class="xiangmu_nr" id="demoo">
+			<div id="indemo">
+				<div id="demoo1">
+					<ul>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_03.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_05.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_07.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_03.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="static/picture/xiangmu_05.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_07.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_03.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_05.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+					</ul>
+				</div>
+				<div id="demoo2">
+					<ul>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_03.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_05.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_07.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_03.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_05.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_07.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+						<li class="xiangmu_1">
+							<a href="/products"><img src="/picture/xiangmu_03.jpg"></a>
+							<a href="/products"><h4>达博圆</h4></a><span>电力职工医院项目外观，项目外观。</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="gd_an">
+			<div class="gd_bj">
+				<a href="products.html"><p>查看更多案例<span>&nbsp;></span></p></a>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(function () {
+	$.ajax({
+		type: 'post',
+		url: '/ItemlistAll',
+		success: function (data) {
+			$('#demoo1 ul').empty();
+			$('#demoo2 ul').empty();
+			$.each(data, function (i, e) {
+				var li = $('<li class="xiangmu_1"></li>');
+				li.append('<a href="/products"><img src="' + e.img + '" width="360px" height="202px"></a><a href="/products"><h4>'+e.title+'</h4></a>');
+				li.appendTo($('#demoo1 ul'));
+			});
+			$.each(data, function (i, e) {
+				var li = $('<li class="xiangmu_1"></li>');
+				li.append('<a href="/products"><img src="' + e.img + ' width="360px" height="202px"></a><a href="#"><h4>'+e.title+'</h4></a>');
+				li.appendTo($('#demoo2 ul'));
+			});
+		}
+	});
+});
+var  speed=30;
+var  tab=document.getElementById("demoo");
+var  tab1=document.getElementById("demoo1");
+var  tab2=document.getElementById("demoo2");
+tab2.innerHTML=tab1.innerHTML;
+function Marquee(){
+if(tab2.offsetWidth-tab.scrollLeft<=0)
+tab.scrollLeft-=tab1.offsetWidth
+else{
+tab.scrollLeft++;
+}
+}
+var  MyMar=setInterval(Marquee,speed);
+tab.onmouseover=function() {clearInterval(MyMar)};
+tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+</script>
+
+<!--关于我们-->
+
+<div class="guanyvwm">
+	<div class="nr_bufen_1_jz">
+		<div class="biaoti">
+			<p>关于我们<span>About us</span></p>
+		</div>
+		<div class="women_1">
+			<div class="zuo_s" id="company">
+				<p>公司简介</p>
+			</div>
+			<div class="women_1_a">
+				<a href="about.html"><img src="/picture/guanyv_03.jpg"></a>
+			</div>
+		</div>
+
+		<div class="women_2">
+			<div class="zuo_s" id="culture">
+				<p>企业文化</p>
+			</div>
+			<div class="women_1_a">
+				<a href="culture.html"><img src="/picture/guanyv_05.jpg"></a>
+			</div>
+		</div>
+		<div class="women_1">
+			<div class="zuo_s" id="courseId">
+				<p>发展历程</p>
+				<span>
+					<ul class="liebiao">
+						<li><img src="/picture/dian_03.png">2016年国家计委、建委批示在贵州..</li>
+						<li><img src="/picture/dian_03.png">2015年组赴绵开始筹建工作..</li>
+						<li><img src="/picture/dian_03.png">2014完成了由仿制到试制改进的任.</li>
+						<li><img src="/picture/dian_03.png">2013年工厂经国家正式验收合格..</li>
+						<li><img src="/picture/dian_03.png">2012年工业学大庆”先进企业...</li>
+						<li><a href="#">更多>></a></li>
+					</ul>
+					<a href="course.html">[详情]</a>
+				</span>
+			</div>
+			<div class="women_1_a">
+				<a href="course.html"><img src="/picture/guanyv_09.jpg"></a>
+			</div>
+		</div>
+		<div class="women_2">
+			<div class="zuo_s" id="speechId">
+				<p>领导致辞</p>
+				<span></span>
+			</div>
+			<div class="women_1_a">
+				<a href="speech.html"><img src="/picture/guanyv_10.jpg"></a>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		company();//公司简介
+		culture();//公司文化
+		course();//发展历程
+		speech();//领导致辞
+	});
+//================公司简介===================================================
+	function company(){
+		$.ajax({
+			type:'post',
+			url:'getCompany',
+			success:function(data){
+				$("#company").empty();
+				$("#company").append($('<p>公司简介</p><span>'+data.content.substring(0,200)+'<a href="about.html">[详情]</a></span>'));
+			}
+		});
+	}
+//================公司文化===================================================
+	function culture(){
+		$.ajax({
+			type:'post',
+			url:'getculture',
+			success:function(data){
+				$("#culture").empty();
+				$("#culture").append($('<p>公司文化</p><span>'+data.content.substring(300,400)+'</span><a href="culture.html">[详情]</a>'));
+			}
+		});
+	}
+//================发展历程===================================================
+	function course(){
+		$.ajax({
+			type:'post',
+			url:'getcourse',
+			success:function(data){
+				$('#courseId span ul').empty();
+				$.each(data,function(i,e){
+					var i = i+1;
+					if(i==7){
+						return false;
+					}
+					$('#courseId span ul').append($('<li><img src="/picture/dian_03.png">'+e.title+'</li>'));
+				});
+			}
+		});
+	}
+	//================领导致辞===================================================
+	function speech(){
+		$.ajax({
+			type:'post',
+			url:'getspeech',
+			success:function(data){
+				$('#speechId span').append($('<p>'+data.content.substring(0,100)+'</p><a href="speech.html">[详情]</a>'));
+			}
+		});
+	}
+</script>
+<!--新闻中心-->
+<div class="xinwen">
+	<div class="xinwen_jz">
+		<div class="biaoti">
+			<p>新闻中心<span>News center</span></p>
+		</div>
+		<div id="cen_right_top">
+			<h3 class="active" style="margin-left: 30%;">公司新闻</h3>
+			<h3>行业新闻</h3>
+			<h3>公司大事记</h3>
+			<ul style="display:block">
+				<div class="news">
+					<div class="xinwen_tu">
+						<a class=xinwen_img href="#"><img src="/picture/xw_03.jpg"></a>
+						<dl class="xinwen_wz">
+							<dt><a href="#"><p style="font-size: 40px;margin-left: 100px;">公司新闻</p></a></dt>
+						</dl>
+					</div>
+					<div class="xinwen_lb" id="news1">
+						<ol>
+							<li>
+								<h4>01</h4>
+								<dl class="xinwen_wz1">
+									<dt><a href="#">公司质量体系内审员安全巡查</a><span>2016-10-10</span></dt>
+									<dd>为帮助各获证企业掌握体系认证标准要求，使企业的管理体...</dd>
+								</dl>
+							</li>
+							<div class="jiange"></div>
+						</ol>
+					</div>
+				</div>
+			</ul>
+			<ul>
+				<div class="news">
+					<div class="xinwen_tu">
+						<a class=xinwen_img href="#"><img src="/picture/xiangmu_07.jpg"></a>
+						<dl class="xinwen_wz">
+							<dt><a href="#"><p style="font-size: 40px;margin-left: 100px;">行业新闻</p></a></dt>
+						</dl>
+					</div>
+					<div class="xinwen_lb" id="news2">
+						<ol>
+							<li>
+								<h4>01</h4>
+								<dl class="xinwen_wz1">
+									<dt><a href="#">第十五届《中国物业管理》杂志协办年会及论坛报道</a><span>2016-10-10</span></dt>
+									<dd>为帮助各获证企业掌握体系认证标准要求，使企业的管理体...</dd>
+								</dl>
+							</li>
+							<div class="jiange"></div>
+
+						</ol>
+					</div>
+				</div>
+			</ul>
+			<ul>
+				<div class="news">
+					<div class="xinwen_tu">
+						<a class=xinwen_img href="#"><img src="/picture/xiangmu_05.jpg"></a>
+						<dl class="xinwen_wz">
+							<dt><a href="#"><p style="font-size: 40px;margin-left: 100px;">公司大事记</p></a></dt>
+						</dl>
+					</div>
+					<div class="xinwen_lb" id="news3">
+						<ol>
+							<li>
+								<h4>01</h4>
+								<dl class="xinwen_wz1">
+									<dt><a href="#">公司开展2016年度通讯员培训</a><span>2016-10-10</span></dt>
+									<dd>为帮助各获证企业掌握体系认证标准要求，使企业的管理体...</dd>
+								</dl>
+							</li>
+							<div class="jiange"></div>
+						</ol>
+					</div>
+				</div>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		$.ajax({
+			type:'post',
+			url:'selectAll',
+			success:function(data){
+				var num1 = 0;
+				var num2 = 0;
+				var num3 = 0;
+				for(var i =0;i<data.length;i++){
+					if(data[i].type==1){
+						num1 = num1+1;
+						if(num1<4) {
+							$('#news1 ol').append($('<li>' +
+									'<h4>0' +(num1+1) + '</h4>' +
+									'<dl class="xinwen_wz1">' +
+									'<dt><a href="companynews.html">' + data[i].title.substring(0, 30) + '</a><span>' + timestampToTime(data[i].createdate) + '</span></dt>' +
+									'<dd>' + data[i].content.substring(0, 30) + '...</dd>' +
+									'</dl>' +
+									'</li>' +
+									'<div class="jiange"></div>'));
+						}
+					}
+					if(data[i].type==2){
+						num2++;
+						if(num2<4) {
+							$('#news2 ol').append($('<li>' +
+									'<h4>0' + (num2+1) + '</h4>' +
+									'<dl class="xinwen_wz1">' +
+									'<dt><a href="industrynews.html">' + data[i].title.substring(0, 30) + '</a><span>' + timestampToTime(data[i].createdate) + '</span></dt>' +
+									'<dd>' + data[i].content.substring(0, 30) + '...</dd>' +
+									'</dl>' +
+									'</li>' +
+									'<div class="jiange"></div>'));
+						}
+					}
+					if(data[i].type==3){
+						num3++;
+						if(num3<4) {
+							$('#news3 ol').append($('<li>' +
+									'<h4>0' + (num3+1) + '</h4>' +
+									'<dl class="xinwen_wz1">' +
+									'<dt><a href="chroniclenews.html">' + data[i].title.substring(0, 30) + '</a><span>' + timestampToTime(data[i].createdate) + '</span></dt>' +
+									'<dd>' + data[i].content.substring(0, 30) + '...</dd>' +
+									'</dl>' +
+									'</li>' +
+									'<div class="jiange"></div>'));
+						}
+					}
+				}
+			}
+		});
+	});
+
+//================================时间转换============================================
+	function timestampToTime(timestamp) {
+		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		Y = date.getFullYear() + '-';
+		M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		D = date.getDate() + ' ';
+		h = date.getHours() + ':';
+		m = date.getMinutes() + ':';
+		s = date.getSeconds();
+		return Y+M+D;
+	}
+</script>
+<!--友情链接-->
+<div class="yqlj">
+	<div class="yqlj_jz">
+		<div class="yqlj_bt">
+			<h4></h4>
+			<span>友情链接</span>
+		</div>
+		<ul class="yqlj_qy">
+			<li><a href="#">贵州驰通网络公司</a></li>
+			<li><a href="#">绿城物业服务集团有限公司</a></li>
+			<li><a href="#">中航物业管理有限公司</a></li>
+			<li><a href="#">保利物业管理有限公司</a></li>
+			<li><a href="#">贵州驰通网络公司</a></li>
+			<li><a href="#">绿城物业服务集团有限公司</a></li>
+			<li><a href="#">中航物业管理有限公司</a></li>
+			<li><a href="#">保利物业管理有限公司</a></li>
+		</ul>
+	</div>
+</div>
+<!--底部-->
+<div th:replace="commons/top::bottom"></div>
+</body>
+</html>
